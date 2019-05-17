@@ -6,7 +6,7 @@ import threading
 WIDTH = 1600
 HEIGHT = 900
 
-size = 1600
+size = 800
  
 delay = 0.01
 
@@ -18,10 +18,19 @@ gj = -1
 glow = -1
 ghigh = -1
 
-def create_randomList(max, lenght):
+def create_list(lenght):
     array = []
     for i in range(lenght):
-        array.append(random.randint(1, max))
+        array.append(i)
+    return array
+
+def shuffle(array):
+    for i in range(len(array)):
+        r1 = i
+        r2 = random.randint(0, len(array) - 1)
+        temp = array[r1]
+        array[r1] = array[r2]
+        array[r2] = temp
     return array
 
 def qs(array, low, high):
@@ -126,7 +135,8 @@ while run:
             if event.key == pygame.K_SPACE:
                 running = False
                 time.sleep(delay * 2)
-                garray = create_randomList(size, size)
+                garray = create_list(size)
+                garray = shuffle(garray)
                 threading.Thread(target=start).start()
 
     screen.fill((0, 0, 0))
